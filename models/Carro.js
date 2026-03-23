@@ -7,30 +7,15 @@ class Obj{
         this.a = a
     }
 
-
-
     des_carro(){
         let img = new Image()
         img.src = this.a
-    
-        // efeito pisca com transparência
-        if (this.invulneravel) {
-            if (Math.floor(this.tempoInv / 5) % 2 === 0) {
-                des.globalAlpha = 0.3 // semi-transparente
-            } else {
-                des.globalAlpha = 1
-            }
-        }
-    
         des.drawImage(img, this.x, this.y, this.w, this.h)
-    
-        // resetar transparência
-        des.globalAlpha = 1
     }
 
     des_quad(){
         des.fillStyle = this.a
-        des.fillRect(this.x, this.y, this.w, this.h, this.a)
+        des.fillRect(this.x, this.y, this.w, this.h,this.a)
     }
 
     des_carro_manual() {
@@ -88,8 +73,6 @@ class Obj{
     }    
 }
 
-
-
 class Carro extends Obj{
 
     dir = 0
@@ -97,9 +80,6 @@ class Carro extends Obj{
     pontos = 0
     frame = 1
     tempo = 0
-    vivo = true
-    invulneravel = false
-    tempoInv = 0
 
     mov_car(){
         this.y += this.dir
@@ -107,14 +87,6 @@ class Carro extends Obj{
             this.y = 62
         }else if(this.y > 692){
             this.y = 692
-        }
-    }
-
-    tomarDano() {
-        if (!this.invulneravel) {
-            this.vida -= 1
-            this.invulneravel = true
-            this.tempoInv = 120 // duração do pisca
         }
     }
 
@@ -146,8 +118,12 @@ class Carro extends Obj{
         if(this.frame>4){
             this.frame=1
         }
+        //carro_001_bg
         this.a = "./img/"+nome+this.frame+"_bg.png"
     }
+
+
+    
 }
 
 class CarroInimigo extends Obj{
@@ -156,12 +132,12 @@ class CarroInimigo extends Obj{
 
     recomeca(){
         this.x = 1300
-        this.y = Math.floor(Math.random() * (638 - 62) + 62)
+        this.y =  Math.floor(Math.random() * (638 - 62) + 62)
     }
 
     mov_car(){
         this.x -= this.vel
-        if(this.x <= -200){            
+        if(this.x <= - 200){            
             this.recomeca()         
         }
     }
@@ -170,17 +146,17 @@ class CarroInimigo extends Obj{
 class Estrada extends Obj{
     mov_est(){
         this.x -= 6
-        if(this.x < -60){
+        if(this.x < - 60){
             this.x = 1300
         }        
     }
 }
 
 class Text{
-    des_text(text, x, y, cor, font){
+    des_text(text,x,y,cor,font){
         des.fillStyle = cor
         des.lineWidth = '5'
         des.font = font
-        des.fillText(text, x, y)
+        des.fillText(text,x,y)
     }
 }
